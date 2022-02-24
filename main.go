@@ -43,9 +43,9 @@ func main() {
 	go func() {
 		var err error
 		if configs.EnableTLS == "enable" {
-			err = http.ListenAndServeTLS("0.0.0.0:8443", "cert.pem", "key.pem", nil)
+			err = http.ListenAndServeTLS("gl-tg-bot.herokuapp.com:8443", "cert.pem", "key.pem", nil)
 		} else {
-			err = http.ListenAndServe("0.0.0.0:8443", nil)
+			err = http.ListenAndServe("gl-tg-bot.herokuapp.com:8443", nil)
 		}
 		if err != nil {
 			log.Fatal(err)
