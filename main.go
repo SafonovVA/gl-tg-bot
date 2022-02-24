@@ -20,9 +20,9 @@ func main() {
 
 	var wh tgbotapi.WebhookConfig
 	if configs.EnableTLS == "enable" {
-		wh, _ = tgbotapi.NewWebhookWithCert("https://www.example.com:8443/"+bot.Token, tgbotapi.FilePath("cert.pem"))
+		wh, _ = tgbotapi.NewWebhookWithCert("https://gl-tg-bot.herokuapp.com:8443/"+bot.Token, tgbotapi.FilePath("cert.pem"))
 	} else {
-		wh, _ = tgbotapi.NewWebhook("https://www.example.com:8443/" + bot.Token)
+		wh, _ = tgbotapi.NewWebhook("https://gl-tg-bot.herokuapp.com:8443/" + bot.Token)
 	}
 
 	_, err = bot.Request(wh)
