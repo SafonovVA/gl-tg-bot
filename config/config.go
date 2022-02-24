@@ -13,7 +13,7 @@ type config struct {
 func NewConfig() *config {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Printf("Error loading .env file")
 	}
 	return &config{
 		TelegramBotToken: os.Getenv("TELEGRAM_BOT_TOKEN"),
