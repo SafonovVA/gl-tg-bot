@@ -43,10 +43,6 @@ func main() {
 	}()
 
 	for update := range updates {
-		//_, err := bot.Send(tgbotapi.NewMessage(-703603408, update.Message.Text))
-		//if err != nil {
-		//	log.Fatal("SUKA")
-		//}
 		log.Printf("%+v\n", update)
 	}
 }
