@@ -15,7 +15,5 @@ func NewConfig() *config {
 	if err != nil {
 		log.Printf("Error loading .env file")
 	}
-	return &config{
-		TelegramBotToken: os.Getenv("TELEGRAM_BOT_TOKEN"),
-	}
+	return &config{TelegramBotToken: os.Getenv("TELEGRAM_BOT_TOKEN")}
 }
