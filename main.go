@@ -20,9 +20,9 @@ func main() {
 
 	var wh tgbotapi.WebhookConfig
 	if configs.EnableTLS == "enable" {
-		wh, _ = tgbotapi.NewWebhookWithCert("https://gl-tg-bot.herokuapp.com:8443/"+bot.Token, tgbotapi.FilePath("cert.pem"))
+		wh, _ = tgbotapi.NewWebhookWithCert(configs.WebhookUrl+bot.Token, tgbotapi.FilePath("cert.pem"))
 	} else {
-		wh, _ = tgbotapi.NewWebhook("https://gl-tg-bot.herokuapp.com:8443/" + bot.Token)
+		wh, _ = tgbotapi.NewWebhook(configs.WebhookUrl + bot.Token)
 	}
 
 	_, err = bot.Request(wh)
@@ -43,9 +43,9 @@ func main() {
 	go func() {
 		var err error
 		if configs.EnableTLS == "enable" {
-			err = http.ListenAndServeTLS("0.0.0.0:8443", "cert.pem", "key.pem", nil)
+			err = http.ListenAndServeTLS(":8443", "cert.pem", "key.pem", nil)
 		} else {
-			err = http.ListenAndServe("0.0.0.0:8443", nil)
+			err = http.ListenAndServe(":8443", nil)
 		}
 		if err != nil {
 			log.Fatal(err)
