@@ -18,7 +18,12 @@ func main() {
 
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
-	wh, _ := tgbotapi.NewWebhookWithCert("https://www.example.com:8443/"+bot.Token, tgbotapi.FilePath("cert.pem"))
+	var wh tgbotapi.WebhookConfig
+	if configs.EnableTLS == "enable" {
+		wh, _ = tgbotapi.NewWebhookWithCert("https://www.example.com:8443/"+bot.Token, tgbotapi.FilePath("cert.pem"))
+	} else {
+		wh, _ = tgbotapi.NewWebhook("https://www.example.com:8443/" + bot.Token)
+	}
 
 	_, err = bot.Request(wh)
 	if err != nil {
@@ -36,7 +41,12 @@ func main() {
 
 	updates := bot.ListenForWebhook("/" + bot.Token)
 	go func() {
-		err := http.ListenAndServeTLS("0.0.0.0:8443", "cert.pem", "key.pem", nil)
+		var err error
+		if configs.EnableTLS == "enable" {
+			err = http.ListenAndServeTLS("0.0.0.0:8443", "cert.pem", "key.pem", nil)
+		} else {
+			err = http.ListenAndServe("0.0.0.0:8443", nil)
+		}
 		if err != nil {
 			log.Fatal(err)
 		}
